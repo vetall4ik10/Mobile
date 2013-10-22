@@ -1,0 +1,43 @@
+<?php if (empty($_SESSION['id'])) {?>
+	<div class="block_login">
+		<form  method="post">
+			<?php print translate('login or email'); ?>
+			<br >
+			<input name="data" type="text" size="20" maxlength="50"/>
+			<br>
+			<?print translate('password'); ?>
+			<br>
+			<input name="password" type="password" size="20" maxlength="50"/>
+			<input type="submit" value="Connected" />
+			<br />
+			<a href="sing-up.php"><?php print translate('Sign up') ?></a>
+			<br />
+			<?php
+			if (!empty($error_profil)) {
+				if($error_profil == 2) {
+					print translate('Invalid username / e-mail or password.');
+				}
+				elseif($error_profil == 3) {
+					print translate('You have been banned');
+				}
+			}
+?>
+		</form>
+	</div>
+<?php
+}
+else { ?>
+	<div class = "block_login">
+	<h2> <?php print translate('Hello') ?>, <?php print $_SESSION['login']; ?> ! </h2>
+	<a href = "profils.php"><?php print translate('profil'); ?></a>
+	<?php if ($_SESSION['access']):?>
+		<a href = "admin.php">admin</a>
+		<a href = "edit-page.php">edit page</a>
+	<?php endif;?>
+	<form method = "post">
+		<input name = 'unset' type = "hidden" value = "1"/>
+		<input type = "submit" value = "<?php print translate('exit');?>">
+	</form>
+	</div>
+<?php
+} ?>
